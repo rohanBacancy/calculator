@@ -15,8 +15,7 @@ function App() {
     } catch (error) {
       alert("Please Enter a valid expression")
       setCurInput("")
-    }
-    
+    }    
   }
 
   const clrClickHandler = () =>
@@ -33,16 +32,31 @@ function App() {
         break;
       default:
         alert("Will never be reached , hopefully!");
-
     }
   }
 
   const sqlClickHandler = () =>
   {
-    
     try {
       let ans = Math.pow(eval(curInput),2);
-      setCurInput(ans);
+
+      if(isNaN(ans)) throw(Error("Enter Valid Input"));
+      else setCurInput(ans);
+
+    } catch (error) {
+      alert("Please Enter a Valid Expression")
+      setCurInput("")
+    }
+  }
+
+  const cubeClickHandler = () =>
+  {
+    try {
+      let ans = Math.pow(eval(curInput),3);
+
+      if(isNaN(ans)) throw(Error("Enter Valid Input"));
+      else setCurInput(ans);
+
     } catch (error) {
       alert("Please Enter a Valid Expression")
       setCurInput("")
@@ -51,9 +65,14 @@ function App() {
 
   const backClickHandler =() =>
   {
+    try{
     let tmp = curInput;
     let newstr = tmp.substr(0,(tmp.length-1))
     setCurInput(newstr);
+    }
+    catch(error){
+      alert("Input is not valid to be removed");
+    }
   }
 
   return (
@@ -85,11 +104,14 @@ function App() {
           <Grid item><Button variant={'contained'} color={'primary'} onClick={() => btnClickHandler("0")}>0</Button></Grid>
           <Grid item><Button variant={'contained'} color={'primary'} onClick={() => btnClickHandler(".")}>.</Button></Grid>
           <Grid item><Button variant={'contained'} color={'secondary'} onClick={() => evalClickHandler()}>=</Button></Grid>
-          <Grid item><Button variant={'contained'} color={'secondary'} onClick={() => clrClickHandler()}>C</Button></Grid>
+          <Grid item><Button variant={'contained'} color={'secondary'} onClick={() => btnClickHandler("/")}>/</Button></Grid>
+          
         </Grid>
         <Grid container spacing={1} justify={'center'}>
-          <Grid item><Button variant={'contained'} color={'secondary'} onClick={() => btnClickHandler("/")}>/</Button></Grid>
+          
           <Grid item><Button variant={'contained'} color={'secondary'} onClick={()=> sqlClickHandler()}>SQR</Button></Grid>
+          <Grid item><Button variant={'contained'} color={'secondary'} onClick={()=> cubeClickHandler()}>CUBE</Button></Grid>
+          <Grid item><Button variant={'contained'} color={'secondary'} onClick={() => clrClickHandler()}>C</Button></Grid>
           <Grid item><Button variant={'contained'} color={'secondary'} onClick={()=> backClickHandler()}>X</Button></Grid>
         </Grid>
       </Grid>
